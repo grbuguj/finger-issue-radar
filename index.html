@@ -364,7 +364,7 @@ tbody tr:hover td{background:var(--panel-2)}
         <div class="dd" id="bellDd"><h5>알림 <button id="readAll">모두 읽음</button></h5><ul id="notiList"></ul></div>
       </div>
       <div class="rel-wrap">
-        <button class="me" id="meBtn"><span class="av">홍</span><span class="nm">홍길동 매니저<small id="meOrg">Nexus 본부</small></span></button>
+        <button class="me" id="meBtn"><span class="av">홍</span><span class="nm">홍길동 매니저<small id="meOrg">전사</small></span></button>
         <div class="dd" id="meDd" style="min-width:240px">
           <div style="padding:14px 16px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:center"><span class="av" style="width:38px;height:38px">홍</span><div><b>홍길동 매니저</b><div style="font-size:12px;color:var(--mute)">gildong.hong@finger.example</div></div></div>
           <ul><li data-menu="home">🏠 내 본부로 이동</li><li data-menu="noti">🔔 알림 설정</li><li data-menu="digest">📬 주간 브리핑 메일 구독</li><li data-menu="logout">↪︎ 로그아웃</li></ul>
@@ -375,7 +375,6 @@ tbody tr:hover td{background:var(--panel-2)}
   </div>
 </header>
 
-<div class="banner" id="banner"><div class="in">⚠️ 해외 소스 1곳(FT) 수집 지연 — 마지막 성공 2시간 전 · 자동 재시도 중 <button id="bannerX">닫기 ✕</button></div></div>
 <nav class="orgbar"><div class="in" id="orgbar"></div></nav>
 
 <main class="wrap" id="main">
@@ -648,12 +647,12 @@ const BANKFEED = [
   { inst: "comp", title: "C사, 주요사항보고서 — 결제 자회사 지분 추가 취득", src: "전자공시", h: 11 },
   { inst: "bank", title: "D은행, 기업뱅킹 플랫폼 클라우드 전환 착수", src: "경제지", h: 19 },
 ];
-const SOURCES = [["금융위원회 보도자료", 1, "6분 전"], ["금융감독원 보도자료", 1, "6분 전"], ["국가법령정보센터", 1, "12분 전"], ["전자공시 (DART)", 1, "6분 전"], ["국내 뉴스 (RSS)", 1, "3분 전"], ["Reuters · Nikkei", 1, "18분 전"], ["FT", 0, "2시간 전 · 재시도 중"]];
+const SOURCES = [["금융위원회 보도자료", 1, "6분 전"], ["금융감독원 보도자료", 1, "6분 전"], ["국가법령정보센터", 1, "12분 전"], ["전자공시 (DART)", 1, "6분 전"], ["국내 뉴스 (RSS)", 1, "3분 전"], ["Reuters · Nikkei", 1, "18분 전"], ["FT", 1, "24분 전"]];
 const SPARK = { rate: [2.75, 2.75, 2.5, 2.5, 2.5, 2.5, 2.5], fx: [1362, 1370, 1366, 1375, 1381, 1380, 1384], ktb: [2.70, 2.68, 2.66, 2.65, 2.63, 2.64, 2.61], issues: [9, 11, 8, 13, 10, 12, 14] };
 
 /* ═════════ 상태 ═════════ */
 const store = { get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} } };
-let org = "nexus"; // 처음 열면 항상 Nexus 본부 화면으로 시작
+let org = "all"; // 처음 열면 전사 공통 화면으로 시작
 let kwMap = { ...DEFAULT_KW, ...store.get("radar.kw", {}) };
 let verdicts = store.get("radar.verdicts", {});
 let stars = new Set(store.get("radar.stars", []));
@@ -1104,7 +1103,6 @@ $("#readAll").onclick = (e) => { e.stopPropagation(); notis.forEach((n) => (n.re
 $("#scrim").onclick = closeAll;
 $("#dClose").onclick = closeAll;
 $("#dStar").onclick = () => openId && toggleStar(openId);
-$("#bannerX").onclick = () => $("#banner").remove();
 $("#keysBtn").onclick = () => { $("#keysModal").classList.add("on"); };
 $("#orgBtn").onclick = () => { $("#sheet").classList.add("on"); $("#scrim").classList.add("on"); };
 $("#editKw").onclick = () => { renderKwEdit(); $("#kwModal").classList.add("on"); };
