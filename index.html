@@ -364,7 +364,7 @@ tbody tr:hover td{background:var(--panel-2)}
         <div class="dd" id="bellDd"><h5>알림 <button id="readAll">모두 읽음</button></h5><ul id="notiList"></ul></div>
       </div>
       <div class="rel-wrap">
-        <button class="me" id="meBtn"><span class="av">홍</span><span class="nm">홍길동 매니저<small id="meOrg">NextPay 본부</small></span></button>
+        <button class="me" id="meBtn"><span class="av">홍</span><span class="nm">홍길동 매니저<small id="meOrg">Nexus 본부</small></span></button>
         <div class="dd" id="meDd" style="min-width:240px">
           <div style="padding:14px 16px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:center"><span class="av" style="width:38px;height:38px">홍</span><div><b>홍길동 매니저</b><div style="font-size:12px;color:var(--mute)">gildong.hong@finger.example</div></div></div>
           <ul><li data-menu="home">🏠 내 본부로 이동</li><li data-menu="noti">🔔 알림 설정</li><li data-menu="digest">📬 주간 브리핑 메일 구독</li><li data-menu="logout">↪︎ 로그아웃</li></ul>
@@ -653,7 +653,7 @@ const SPARK = { rate: [2.75, 2.75, 2.5, 2.5, 2.5, 2.5, 2.5], fx: [1362, 1370, 13
 
 /* ═════════ 상태 ═════════ */
 const store = { get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} } };
-let org = store.get("radar.org", "nextpay");
+let org = "nexus"; // 처음 열면 항상 Nexus 본부 화면으로 시작
 let kwMap = { ...DEFAULT_KW, ...store.get("radar.kw", {}) };
 let verdicts = store.get("radar.verdicts", {});
 let stars = new Set(store.get("radar.stars", []));
@@ -1093,7 +1093,7 @@ document.addEventListener("click", (e) => {
   if (t.dataset.law && t.tagName === "BUTTON") { lawFilter = t.dataset.law; renderTabs(); renderLaws(); return; }
   if (t.dataset.rm) { kwMap[org] = myKw().filter((_, i) => i !== +t.dataset.rm); store.set("radar.kw", kwMap); renderKwEdit(); animate = false; renderAll(); return; }
   if (t.dataset.noti) { const n = notis.find((x) => x.id === +t.dataset.noti); if (n) n.read = true; renderNotis(); $("#bellDd").classList.remove("on"); return openIssue(t.dataset.noti); }
-  if (t.dataset.menu) { $("#meDd").classList.remove("on"); if (t.dataset.menu === "home") return setOrg("nextpay"); return toast(t.dataset.menu === "logout" ? "목업에서는 로그아웃할 수 없습니다" : "목업 — 설정 화면 준비 중"); }
+  if (t.dataset.menu) { $("#meDd").classList.remove("on"); if (t.dataset.menu === "home") return setOrg("nexus"); return toast(t.dataset.menu === "logout" ? "목업에서는 로그아웃할 수 없습니다" : "목업 — 설정 화면 준비 중"); }
   if (t.dataset.open) openIssue(t.dataset.open);
 });
 const toggleDd = (id) => (e) => { e.stopPropagation(); const el = $(id), on = el.classList.contains("on"); document.querySelectorAll(".dd.on").forEach((m) => m.classList.remove("on")); if (!on) el.classList.add("on"); };
